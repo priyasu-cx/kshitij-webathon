@@ -9,8 +9,9 @@ import SignUp from "./pages/signup";
 function App() {
   return (
     <>
-      <Navbar />
+      
       <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Hero/>}/>
         <Route path="/appliedevent" element={<AppliedEvent/>}/>

@@ -6,8 +6,7 @@ import EventForm from "./components/event_form";
 function Hero() {
 
   return (
-    
-    <div className="">
+    <div>
       {/* <div className="flex flex-col items-center my-2 ">
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Add Event
