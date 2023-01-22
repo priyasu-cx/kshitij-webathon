@@ -48,6 +48,6 @@ async def register_user(userData: CreateUserSchema):
 
 async def all_users_from_db() -> list[AllUserSchema]:
     users = list(collection.find({}))
-    if users:
+    if len(users) > 0:
         return [AllUserSchema(**user) for user in users]
     return []

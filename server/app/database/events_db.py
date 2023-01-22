@@ -20,7 +20,7 @@ async def get_event_from_db(eventID: str):
 
 async def all_events_from_db():
     users = list(collection.find({}))
-    if users:
+    if len(users) > 0:
         return [EventsDBSchema(**user) for user in users]
     return []
 
