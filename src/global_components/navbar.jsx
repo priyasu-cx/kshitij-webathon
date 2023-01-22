@@ -1,17 +1,21 @@
 import React from "react";
+import { useContext } from "react";
+import { userContext } from "./authenticator";
 import { NavLink } from "react-router-dom";
+import UserSideBar from "../pages/components/side_drawer";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const {setUser, user, data, id, setId} = useContext(userContext);
   return (
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
       <div class="container flex flex-wrap items-center justify-between mx-auto">
-        <a href="https://flowbite.com/" class="flex items-center">
+        <a href="/" class="flex items-center">
           <img
-            src="https://banner2.cleanpng.com/20180728/ftk/kisspng-computer-icons-icon-design-users-group-group-icon-5b5c712f527ed9.0606827715327849433379.jpg"
+            src="https://img.icons8.com/external-flat-icons-vectorslab/68/null/external-Group-user-interface-flat-icons-vectorslab.png"
             class="h-6 mr-3 sm:h-9"
             alt="Flowbite Logo"
           />
-          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+          <span class="self-center text-xl font-extrabold font-mono whitespace-nowrap dark:text-white">
             Groupify
           </span>
         </a>
@@ -37,13 +41,13 @@ const Navbar = () => {
           >
             <div class="px-4 py-3">
               <span class="block text-sm text-gray-900 dark:text-white">
-                Bonnie Green
+                {user.name}
               </span>
               <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-                name@flowbite.com
+                {user.email}
               </span>
             </div>
-            <ul class="py-1" aria-labelledby="user-menu-button">
+            {/* <ul class="py-1" aria-labelledby="user-menu-button">
               <li>
                 <a
                   href="#"
@@ -61,8 +65,22 @@ const Navbar = () => {
                   Sign out
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
+          <div class="flex flex-col items-center">
+        <button
+          class="text-white m-0 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600"
+          type="button"
+          data-drawer-target="drawer-right-example"
+          data-drawer-show="drawer-right-example"
+          data-drawer-placement="right"
+          aria-controls="drawer-right-example"
+        >
+          <img src="https://img.icons8.com/color/48/null/double-left--v1.png" className="h-8"></img>
+        </button>
+      </div>
+      <UserSideBar/>
+
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"

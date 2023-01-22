@@ -1,7 +1,9 @@
+import { Carousel } from "flowbite";
 import React from "react";
 import { useState } from "react";
 import EventCard from "./components/event_card";
 import EventForm from "./components/event_form";
+import CarouselAuto from "./components/carousel";
 
 function Hero() {
 
@@ -12,9 +14,10 @@ function Hero() {
           Add Event
         </button>
       </div> */}
-
+      
       <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-1 lg:px-20 px-10">
         <div className="col-span-2">
+        {/* <CarouselAuto/> */}
           <h1 class="flex flex-col my-4 text-2xl items-center lg:items-start font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-5xl dark:text-white">
             Upcoming event
           </h1>
@@ -57,7 +60,7 @@ function Hero() {
           </button>
           <div
             id="dropdownUsers"
-            class="z-10 hidden bg-white rounded shadow w-1/5 dark:bg-gray-700"
+            class="z-10 hidden bg-white rounded shadow lg:w-1/5 md:w-1/2 dark:bg-gray-700"
           >
             <ul
               class="h-30 py-1 overflow-y-auto text-gray-700 dark:text-gray-200"

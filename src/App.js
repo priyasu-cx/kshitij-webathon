@@ -5,11 +5,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Hero from "./pages/hero";
 import AppliedEvent from "./pages/applied_event";
 import SignUp from "./pages/signup";
+import Authenticator from "./global_components/authenticator";
 
 function App() {
   return (
     <>
-      
+      <Authenticator>
       <BrowserRouter>
       <Navbar />
       <Routes>
@@ -18,6 +19,8 @@ function App() {
         <Route path="/signup" element={<SignUp/>}/>
       </Routes>
       </BrowserRouter>
+      </Authenticator>
+      
     </>
   );
 }

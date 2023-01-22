@@ -2,9 +2,9 @@ import React from "react";
 
 const EventCard = ({ event }) => {
     return(
-        <div class="flex flex-col items-center py-4 bg-white border rounded-lg shadow-md md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div class="flex flex-col items-center py-4 pl-4 bg-white border rounded-lg shadow-md md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <img
-              class="object-cover w-full rounded-t-lg h-30 md:h-auto md:w-1/4 md:rounded-none md:rounded-l-lg"
+              class="object-fill w-full rounded-t-lg h-30 md:h-auto md:w-1/4 md:rounded-none md:rounded-l-lg"
               src="https://thumbs.dreamstime.com/b/hackathon-event-banner-hackathon-event-banner-d-s-style-concept-135908926.jpg"
               alt=""
             />
