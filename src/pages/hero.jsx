@@ -1,12 +1,33 @@
 import { Carousel } from "flowbite";
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import EventCard from "./components/event_card";
 import EventForm from "./components/event_form";
 import CarouselAuto from "./components/carousel";
+import eventModel from "../models/eventBaseModel";
+import { userContext } from "../global_components/authenticator";
 
 function Hero() {
+  const [data, setdata] = useState(eventModel);
+  const { user } = useContext(userContext);
 
+  const checkValid = (event) => {
+    if (event.authorID == user.userID) return false;
+    if (event.approvedUsers.find((u) => u == user.userID) !== undefined)
+      return false;
+    if (event.appliedUsers.find((u) => u == user.userID) !== undefined)
+      return false;
+    return true;
+  };
+
+  //console.log(user);
+  //console.log(eventModel.filter(checkValid));
+  useEffect(() => {
+    console.log("useEffect");
+    console.log(eventModel);
+    console.log(eventModel.filter(checkValid));
+    setdata(eventModel.filter(checkValid));
+  }, [user]);
   return (
     <div>
       {/* <div className="flex flex-col items-center my-2 ">
@@ -14,25 +35,30 @@ function Hero() {
           Add Event
         </button>
       </div> */}
-      
+
       <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-1 lg:px-20 px-10">
         <div className="col-span-2">
-        {/* <CarouselAuto/> */}
+          {/* <CarouselAuto/> */}
           <h1 class="flex flex-col my-4 text-2xl items-center lg:items-start font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-5xl dark:text-white">
             Upcoming event
           </h1>
-          <EventCard />
+          {data.map((event) => (
+            <EventCard event={event} />
+          ))}
+          {/* <EventCard /> */}
         </div>
 
         <div className="lg:col-span-1 col-span-2">
-        <h1 class="my-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">
+          <h1 class="my-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">
             Add event
-          </h1><hr className="pb-2"/>
-          <EventForm/>
+          </h1>
+          <hr className="pb-2" />
+          <EventForm />
 
           <h1 class="my-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">
             Posted events
-          </h1><hr className="pb-2"/>
+          </h1>
+          <hr className="pb-2" />
 
           <button
             id="dropdownUsersButton"
