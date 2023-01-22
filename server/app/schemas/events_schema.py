@@ -11,8 +11,8 @@ class EventsDBSchema(BaseModel):
     appliedUsers: list[str]
     approvedUsers: list[str]
     closeDate: datetime
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
+    created_at: datetime 
+    updated_at: datetime 
 
     class Config:
         orm_mode = True

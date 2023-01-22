@@ -3,6 +3,7 @@ import random
 import string
 from pymongo import MongoClient
 from app.config import settings
+from app.database.team_db import create_team
 from app.schemas.events_schema import CreateEventSchema, EventsDBSchema
 
 cluster = MongoClient(settings.DATABASE_URL)
@@ -62,10 +63,26 @@ async def apply_user_to_event(event: EventsDBSchema, userID: str):
     return True
 
 
+async def remove_event_to_team(event: EventsDBSchema):
+    try:
+        state = create_team(event)
+        if not state:
+            return False
+        collection.delete_one({"_id": event.eventID})
+    except:
+        return False
+    return True
+
+
 async def aprove_user_to_event(event: EventsDBSchema, userID: str, approved: bool):
     if approved:
         event.approvedUsers.append(event.appliedUsers.pop(userID))
         event.updated_at = datetime.now()
+
+        if event.approvedUsers.count(userID) == event.maxTeamCount:
+            state = await remove_event_to_team(event)
+            return state
+
         try:
             # collection.update_one({"_id": event.eventID}, "$set": {'appliedUsers': event.appliedUsers, 'approvedUsers': event.approvedUsers, 'updated_at': datetime.now()})
             collection.replace_one({"_id": event.eventID}, event.dict())
@@ -80,3 +97,14 @@ async def aprove_user_to_event(event: EventsDBSchema, userID: str, approved: boo
         except:
             return False
         return True
+
+
+async def get_user_events(userID):
+    events = await all_events_from_db()
+    if events:
+        userEvents = []
+        for event in events:
+            if userID in event.appliedUsers or userID in event.approvedUsers or userID == event.authorID:
+                userEvents.append(event)
+        return userEvents
+    return []

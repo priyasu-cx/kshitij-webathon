@@ -4,6 +4,7 @@ import uvicorn
 from app.config import settings
 from app.paths.user import user
 from app.paths.event import events
+from app.paths.team import team
 
 app = FastAPI()
 
@@ -21,6 +22,7 @@ app.add_middleware(
 
 app.include_router(user.userRouter)
 app.include_router(events.eventRouter)
+app.include_router(team.teamRouter)
 
 
 @app.get("/")

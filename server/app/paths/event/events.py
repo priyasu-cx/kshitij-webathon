@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
-
-from app.database.events_db import all_events_from_db, apply_user_to_event, aprove_user_to_event, delete_event_from_db, get_event_from_db, register_event
+from app.database.events_db import all_events_from_db, apply_user_to_event, aprove_user_to_event, delete_event_from_db, get_event_from_db, get_user_events, register_event
 from app.database.user_db import get_user_from_db
 from app.schemas.events_schema import CreateEventSchema
 
@@ -114,3 +113,16 @@ async def delete_event(eventID: str):
         raise HTTPException(status_code=404, detail="Event not found")
 
     return {"status": "success"}
+
+
+@eventRouter.get('/me')
+async def get_my_events(userID: str):
+    user = await get_user_from_db(userID)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    events = await get_user_events(userID)
+    if len(events) == 0:
+        raise HTTPException(status_code=404, detail="No events found")
+
+    return {"status": "success", "events": events}
